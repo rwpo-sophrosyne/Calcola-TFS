@@ -58,3 +58,21 @@ La parte fiscale non ricostruisce autonomamente il quinquennio fiscale. Per il n
 - INPS — Circolare 30/2026 per termini e rateizzazione
 
 Questo progetto è informativo e non sostituisce la liquidazione ufficiale dell'INPS/amministrazione.
+
+
+## Tempi di pagamento aggiornati
+
+La pagina contiene un riepilogo delle regole INPS aggiornate dalla circolare n. 30 del 27/03/2026:
+
+- inabilità/decesso: entro 105 giorni;
+- limite di età/anzianità massima/risoluzione unilaterale per pensione anticipata: 12 mesi + 3 mesi se il requisito pensionistico è maturato entro il 31/12/2026;
+- gli stessi casi: 9 mesi + 3 mesi se il requisito pensionistico è maturato dal 01/01/2027;
+- scadenza contratto a tempo determinato: 12 mesi;
+- altri casi, inclusi dimissioni volontarie e licenziamento/destituzione: 24 mesi + 3 mesi.
+
+La rateizzazione resta: fino a 50.000 € una soluzione; oltre 50.000 € e sotto 100.000 € due rate; da 100.000 € tre rate. Le rate successive alla prima sono dopo 12 mesi.
+
+Fonte primaria: INPS, Circolare n. 30 del 27 marzo 2026.
+
+## Formato degli importi
+I campi economici accettano il formato italiano, ad esempio `1.327,91`, oltre a `1327,91` e `1327.91`. Il calcolatore normalizza internamente gli importi per il calcolo.

@@ -43,31 +43,31 @@
   </section>
 
   <section class="card">
-    <div class="section-title"><span>2</span><div><h2>Trattamento economico</h2><p>Inserisci solo importi che risultano nel tuo cedolino/prospetto e che sono utili al TFS. Non vengono inventate voci o importi.</p></div></div>
+    <div class="section-title"><span>2</span><div><h2>Trattamento economico</h2><p>Inserisci solo importi che risultano nel tuo cedolino/prospetto e che sono utili al TFS. Non vengono inventate voci o importi.<br><strong>Formato importi:</strong> puoi scrivere 1.327,91 (formato italiano). Sono accettati anche 1327,91 e 1327.91.</p></div></div>
     <div class="grid two">
       <label>Stipendio / parametro — mensile lordo €
-        <input id="salary" type="number" min="0" step="0.01" value="0">
+        <input id="salary" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 1.327,91">
       </label>
       <label>RIA — mensile lordo €
-        <input id="ria" type="number" min="0" step="0.01" value="0">
+        <input id="ria" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 0,00">
       </label>
       <label>IIS conglobata — mensile €
-        <input id="iis" type="number" min="0" step="0.01" value="0">
+        <input id="iis" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 526,49">
       </label>
       <label>Elemento provvisorio — mensile €
-        <input id="temporary" type="number" min="0" step="0.01" value="0">
+        <input id="temporary" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 9,27">
       </label>
       <label>Assegno funzionale / voce equivalente — mensile €
-        <input id="functional" type="number" min="0" step="0.01" value="0">
+        <input id="functional" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 146,03">
       </label>
       <label>Altre voci utili — mensile €
-        <input id="otherMonthly" type="number" min="0" step="0.01" value="0">
+        <input id="otherMonthly" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 0,00">
       </label>
       <label>13ª mensilità — importo lordo €
-        <input id="thirteenth" type="number" min="0" step="0.01" value="0">
+        <input id="thirteenth" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 2.288,25">
       </label>
       <label>6 scatti — importo annuo utile TFS €
-        <input id="sixSteps" type="number" min="0" step="0.01" value="0">
+        <input id="sixSteps" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 3.354,61">
       </label>
     </div>
     <p class="hint">I 6 scatti sono inseriti manualmente: il calcolatore non decide se spettano e non li calcola automaticamente.</p>
@@ -88,17 +88,38 @@
     <div class="notice warning"><strong>Non sai questi dati?</strong> Fermati al TFS lordo. Vai alla <a href="guida.html#fiscale">guida fiscale</a> per sapere dove recuperarli.</div>
     <div class="grid two">
       <label>Reddito di riferimento — € <span class="optional">opzionale</span>
-        <input id="referenceIncome" type="number" min="0" step="0.01" placeholder="es. 18.357,92">
+        <input id="referenceIncome" class="money-input" type="text" inputmode="decimal" autocomplete="off" placeholder="es. 18.357,92">
       </label>
       <label>Aliquota applicata al TFS — % <span class="optional">ufficiale</span>
-        <input id="taxRate" type="number" min="0" max="100" step="0.01" placeholder="es. 23,00">
+        <input id="taxRate" type="text" inputmode="decimal" autocomplete="off" placeholder="es. 23,00">
       </label>
       <label>Riduzione Legge 244/2007 — € <span class="optional">ufficiale</span>
-        <input id="law244" type="number" min="0" step="0.01" placeholder="es. 59,41">
+        <input id="law244" class="money-input" type="text" inputmode="decimal" autocomplete="off" placeholder="es. 59,41">
       </label>
     </div>
     <button id="calculateTax" class="button">Calcola il netto indicativo</button>
     <div id="taxResult" class="tax-result hidden"></div>
+  </section>
+
+  <section class="card" id="tempi">
+    <div class="section-title"><span>5</span><div><h2>Quando viene pagato il TFS?</h2><p>La tempistica dipende dalla causa di cessazione e, per alcune cessazioni, dalla data di maturazione del requisito pensionistico.</p></div></div>
+    <div class="grid two">
+      <label>Causa di cessazione
+        <select id="cessationReason">
+          <option value="">Seleziona</option>
+          <option value="inability_death">Inabilità / decesso</option>
+          <option value="age_service">Limite di età / anzianità massima di servizio / risoluzione unilaterale per pensione anticipata</option>
+          <option value="fixed_term">Scadenza contratto a tempo determinato</option>
+          <option value="other">Dimissioni / licenziamento / destituzione / altri casi</option>
+        </select>
+      </label>
+      <label>Anno di maturazione del requisito pensionistico
+        <input id="pensionYear" type="number" min="1900" max="2100" step="1" placeholder="es. 2027">
+      </label>
+    </div>
+    <button id="calculateTiming" class="button secondary">Mostra la tempistica applicabile</button>
+    <div id="timingResult" class="tax-result hidden"></div>
+    <div class="notice warning"><strong>Disclaimer:</strong> i termini indicati sono quelli normativi riepilogati dall'INPS. La data effettiva di pagamento dipende dalla lavorazione della pratica e dal caso individuale; questa sezione non costituisce una previsione vincolante.</div>
   </section>
 
   <section class="card">
@@ -108,7 +129,7 @@
   </section>
 </main>
 
-<footer><div class="wrap">Calcola il tuo TFS · Strumento informativo · <a href="guida.html">Fonti e metodo</a></div></footer>
+<footer><div class="wrap"><strong>Disclaimer:</strong> stima informativa, non sostitutiva del prospetto ufficiale INPS/amministrazione. · <a href="guida.html">Fonti e metodo</a></div></footer>
 <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,7 +1,56 @@
 const $ = (id) => document.getElementById(id);
 const money = new Intl.NumberFormat("it-IT", {style:"currency", currency:"EUR"});
 
-function n(id){ const v = parseFloat($(id).value); return Number.isFinite(v) ? v : 0; }
+function parseLocaleNumber(value){
+  if (typeof value !== "string") return Number(value) || 0;
+  let s = value.trim().replace(/\s/g, "").replace(/'/g, "");
+  if (!s) return 0;
+
+  const hasComma = s.includes(",");
+  const hasDot = s.includes(".");
+
+  if (hasComma && hasDot) {
+    // Italian format: 1.327,91
+    s = s.replace(/\./g, "").replace(",", ".");
+  } else if (hasComma) {
+    s = s.replace(",", ".");
+  } else if (hasDot) {
+    const parts = s.split(".");
+    // A single dot followed by exactly 3 digits is treated as a thousands separator.
+    if (parts.length === 2 && parts[1].length === 3 && parts[0].length <= 3) {
+      s = parts.join("");
+    } else if (parts.length > 2) {
+      // Multiple dots: treat the last one as the decimal separator.
+      s = parts.slice(0, -1).join("") + "." + parts[parts.length - 1];
+    }
+  }
+
+  const v = Number(s);
+  return Number.isFinite(v) ? v : 0;
+}
+
+function n(id){ return parseLocaleNumber($(id).value); }
+
+const moneyInputIds = [
+  "salary","ria","iis","temporary","functional","otherMonthly",
+  "thirteenth","sixSteps","referenceIncome","law244"
+];
+
+moneyInputIds.forEach(id => {
+  $(id).addEventListener("blur", () => {
+    const value = parseLocaleNumber($(id).value);
+    if ($(id).value.trim() !== "" && Number.isFinite(value)) {
+      $(id).value = value.toLocaleString("it-IT", {minimumFractionDigits:2, maximumFractionDigits:2});
+    }
+  });
+});
+
+$("taxRate").addEventListener("blur", () => {
+  const value = parseLocaleNumber($("taxRate").value);
+  if ($("taxRate").value.trim() !== "" && Number.isFinite(value)) {
+    $("taxRate").value = value.toLocaleString("it-IT", {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+});
 
 function usefulYears(){
   if ($("certifiedToggle").checked) {
@@ -27,9 +76,48 @@ function calculate(){
   return {years, annual, base80, gross};
 }
 
+
+function calculateTiming(){
+  const reason = $("cessationReason").value;
+  const pensionYear = parseInt($("pensionYear").value, 10);
+  let title = "";
+  let detail = "";
+
+  if (!reason) {
+    $("timingResult").classList.remove("hidden");
+    $("timingResult").innerHTML = "<strong>Seleziona la causa di cessazione.</strong>";
+    return;
+  }
+
+  if (reason === "inability_death") {
+    title = "Entro 105 giorni dalla cessazione";
+    detail = "Per cessazione dal servizio per inabilità o decesso.";
+  } else if (reason === "age_service") {
+    if (Number.isFinite(pensionYear) && pensionYear >= 2027) {
+      title = "Dopo 9 mesi, ed entro i 3 mesi successivi";
+      detail = "Regola applicabile ai soggetti che maturano il requisito pensionistico dal 1° gennaio 2027, nei casi previsti dalla circolare INPS n. 30/2026.";
+    } else if (Number.isFinite(pensionYear) && pensionYear <= 2026) {
+      title = "Dopo 12 mesi, ed entro i 3 mesi successivi";
+      detail = "Regola applicabile ai soggetti che maturano il requisito pensionistico entro il 31 dicembre 2026.";
+    } else {
+      title = "12 mesi oppure 9 mesi";
+      detail = "Inserisci l'anno di maturazione del requisito pensionistico per distinguere la disciplina precedente da quella applicabile dal 2027.";
+    }
+  } else if (reason === "fixed_term") {
+    title = "12 mesi";
+    detail = "Per la scadenza del contratto a tempo determinato, secondo la disciplina richiamata dall'INPS.";
+  } else if (reason === "other") {
+    title = "Dopo 24 mesi, ed entro i 3 mesi successivi";
+    detail = "Per gli altri casi di cessazione indicati dall'INPS, tra cui dimissioni volontarie e licenziamento/destituzione.";
+  }
+
+  $("timingResult").classList.remove("hidden");
+  $("timingResult").innerHTML = `<strong>${title}</strong><p>${detail}</p><p class="hint">Disclaimer: termine normativo indicativo; la data effettiva dipende dalla lavorazione della pratica e dalla posizione individuale.</p>`;
+}
+
 function calculateTax(){
   const c = calculate();
-  const rate = n("taxRate") / 100;
+  const rate = parseLocaleNumber($("taxRate").value) / 100;
   const law244 = n("law244");
   const rr = n("referenceIncome");
 
@@ -66,4 +154,5 @@ $("certifiedToggle").addEventListener("change", ()=>{
   calculate();
 });
 $("calculateTax").addEventListener("click", calculateTax);
+$("calculateTiming").addEventListener("click", calculateTiming);
 calculate();
