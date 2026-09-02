@@ -80,11 +80,11 @@ I campi economici accettano il formato italiano, ad esempio `1.500,00`, oltre a 
 
 ## Modalità B — Ultimo Miglio TFS
 
-Il calcolatore include una modalità dedicata a chi possiede il documento **Ultimo Miglio TFS**. Gli importi sono inseriti come valori annualizzati, senza ricostruirli dal cedolino. Per gli iscritti ex ENPAS, l'INPS indica che la tredicesima non viene inserita nell'Ultimo Miglio e viene calcolata automaticamente dal gestionale TFS. Il sito la rende esplicita come 1/12 del trattamento stipendiale annualizzato per mostrare il passaggio di calcolo; il prospetto ufficiale INPS resta prevalente.
+Il calcolatore include una modalità dedicata a chi possiede il documento **Ultimo Miglio TFS**. Gli importi sono inseriti come valori annualizzati, senza ricostruirli dal cedolino. Per gli iscritti ex ENPAS, l'INPS indica che la tredicesima non viene inserita nell'Ultimo Miglio e viene calcolata automaticamente dal gestionale TFS. Il sito la stima, a fini informativi, come 1/12 del totale annualizzato delle voci utili inserite; il prospetto ufficiale INPS resta prevalente.
 
 Campi: trattamento stipendiale art. 2, anticipazione benefici futuri art. 1, assegno funzionale DPR 52/2009 art. 8, altre voci utili TFS e 6 scatti se documentati.
 
 
 ## Quale modalità usare?
 
-**Modalità A — Cedolino:** ricostruisce la base TFS dalle voci del cedolino. **Modalità B — Ultimo Miglio TFS:** usa gli importi annualizzati certificati nell’Ultimo Miglio TFS. Per gli iscritti alla Cassa ex ENPAS, i dati retributivi dell’Ultimo Miglio sono privi della tredicesima, che viene calcolata dal gestionale TFS INPS. citeturn0search0turn0search1
+**Modalità A — Cedolino:** ricostruisce la base TFS dalle voci del cedolino. **Modalità B — Ultimo Miglio TFS:** usa gli importi annualizzati certificati nell’Ultimo Miglio TFS. Per gli iscritti alla Cassa ex ENPAS, i dati retributivi dell’Ultimo Miglio sono privi della tredicesima, che viene calcolata dal gestionale TFS INPS.

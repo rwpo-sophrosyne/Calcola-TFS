@@ -22,12 +22,6 @@
     <p>Calcolo indicativo dell'Indennità di Buonuscita. Il calcolo lordo parte dalle voci retributive utili e dagli anni utili TFS. Il netto è disponibile solo inserendo i dati fiscali ufficiali del prospetto di liquidazione.</p>
     <div class="notice"><strong>Importante:</strong> questo strumento non sostituisce il prospetto ufficiale INPS/Amministrazione.</div>
 
-<section class="info-box" style="margin:1rem auto 1.5rem; max-width:1000px;">
-  <h2>Quale calcolatore devo usare?</h2>
-  <p><strong>Modalità A — Calcolo da cedolino:</strong> usa le voci del cedolino per ricostruire la retribuzione utile TFS. È pensata per chi non dispone dell’Ultimo Miglio TFS.</p>
-  <p><strong>Modalità B — Calcolo da Ultimo Miglio TFS:</strong> usa direttamente gli importi annualizzati presenti nel documento Ultimo Miglio TFS trasmesso dall’Amministrazione all’INPS. È la modalità da preferire quando hai già questo documento.</p>
-  <p><strong>Attenzione per ex ENPAS:</strong> i dati retributivi dell’Ultimo Miglio TFS sono inseriti senza tredicesima; la tredicesima viene calcolata dal gestionale TFS INPS. Non inserirla una seconda volta nella Modalità B.</p>
-</section>
   </section>
 
   <section class="mode-explainer">
@@ -41,7 +35,7 @@
     <div class="section-title"><span>1</span><div><h2>Anzianità utile TFS</h2><p>Usa gli anni utili risultanti dal prospetto/stato di servizio. Se conosci solo anni e mesi, il sito applica la regola della frazione superiore a 6 mesi.</p></div></div>
     <div class="grid two">
       <label>Anni di servizio
-        <input id="years" type="number" min="0" step="1" value="27">
+        <input id="years" type="number" min="0" step="1" value="">
       </label>
       <label>Mesi aggiuntivi
         <input id="months" type="number" min="0" max="11" step="1" value="0">
@@ -50,7 +44,7 @@
     <label class="check"><input id="certifiedToggle" type="checkbox"> Ho già gli <strong>anni utili TFS certificati</strong></label>
     <div id="certifiedBox" class="hidden">
       <label>Anni utili TFS certificati
-        <input id="certifiedYears" type="number" min="1" step="1" placeholder="es. 27">
+        <input id="certifiedYears" type="number" min="1" step="1" placeholder="es. 30">
       </label>
     </div>
     <p class="result-line">Anni utilizzati nel calcolo: <strong id="usefulYears">0</strong></p>
@@ -114,7 +108,7 @@
           <input id="umSixSteps" class="money-input" type="text" inputmode="decimal" autocomplete="off" placeholder="es. 0,00">
         </label>
       </div>
-      <p class="hint">La 13ª non va inserita qui se stai copiando un Ultimo Miglio ex ENPAS: il sistema INPS la considera separatamente. Il calcolatore la stima come 1/12 del “Trattamento stipendiale art. 2” per rendere leggibile il calcolo; il dato ufficiale di liquidazione resta prevalente.</p>
+      <p class="hint">La 13ª non va inserita qui se stai copiando un Ultimo Miglio ex ENPAS: l’INPS indica che viene calcolata automaticamente dal gestionale TFS. Il calcolatore la stima come 1/12 del totale annualizzato delle voci utili inserite, solo per fornire una simulazione; il dato ufficiale di liquidazione resta prevalente.</p>
     </div>
   </section>
 

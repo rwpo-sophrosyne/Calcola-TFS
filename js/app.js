@@ -77,9 +77,11 @@ function calculate(){
     const sixSteps = n("umSixSteps");
     // Per gli iscritti ex ENPAS la 13ª è esclusa dagli importi annualizzati
     // comunicati nell'Ultimo Miglio e viene calcolata dal gestionale TFS.
-    // Qui la rendiamo esplicita come 1/12 del trattamento stipendiale.
-    const thirteenth = treatment / 12;
-    annual = treatment + benefits + functional + other + sixSteps + thirteenth;
+    // Il sito la stima, a fini informativi, come 1/12 del totale annualizzato
+    // delle voci utili inserite. Il prospetto ufficiale INPS resta prevalente.
+    const annualWithoutThirteenth = treatment + benefits + functional + other + sixSteps;
+    const thirteenth = annualWithoutThirteenth / 12;
+    annual = annualWithoutThirteenth + thirteenth;
     detail = {treatment, benefits, functional, other, sixSteps, thirteenth};
   } else {
     const monthly = ["salary","ria","iis","temporary","functional","otherMonthly"].reduce((s,id)=>s+n(id),0);
