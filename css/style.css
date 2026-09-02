@@ -6,3 +6,4 @@ select{width:100%;padding:12px 13px;border:1px solid #cbd3dc;border-radius:9px;f
 .mode-button{border:1px solid #cbd5e1;background:#fff;color:#172033;border-radius:10px;padding:11px 15px;font:inherit;font-weight:700;cursor:pointer}
 .mode-button.active{background:#172033;color:#fff;border-color:#172033}
 .mode-button:hover{filter:brightness(.97)}
+.mode-explainer{background:#eef7f3;border:1px solid #c9e3d5;border-left:5px solid #2f7d5b;border-radius:12px;padding:20px 22px;margin:4px 0 22px}.mode-explainer h2{margin-bottom:10px}.mode-explainer p:last-child{margin-bottom:0}.mode-explainer strong{color:#173f2d}
