@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Calcolatore indicativo del TFS - Indennità di Buonuscita per il personale militare dell'Esercito Italiano.">
+  <title>Calcola il tuo TFS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">Calcola il tuo TFS</a>
+    <nav><a href="#calcolo">Calcolatore</a><a href="guida.html">Come si compila</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Esercito • Indennità di Buonuscita</p>
+    <h1>Calcola il tuo TFS</h1>
+    <p>Calcolo indicativo dell'Indennità di Buonuscita. Il calcolo lordo parte dalle voci retributive utili e dagli anni utili TFS. Il netto è disponibile solo inserendo i dati fiscali ufficiali del prospetto di liquidazione.</p>
+    <div class="notice"><strong>Importante:</strong> questo strumento non sostituisce il prospetto ufficiale INPS/Amministrazione.</div>
+  </section>
+
+  <section id="calcolo" class="card">
+    <div class="section-title"><span>1</span><div><h2>Anzianità utile TFS</h2><p>Usa gli anni utili risultanti dal prospetto/stato di servizio. Se conosci solo anni e mesi, il sito applica la regola della frazione superiore a 6 mesi.</p></div></div>
+    <div class="grid two">
+      <label>Anni di servizio
+        <input id="years" type="number" min="0" step="1" value="0">
+      </label>
+      <label>Mesi aggiuntivi
+        <input id="months" type="number" min="0" max="11" step="1" value="0">
+      </label>
+    </div>
+    <label class="check"><input id="certifiedToggle" type="checkbox"> Ho già gli <strong>anni utili TFS certificati</strong></label>
+    <div id="certifiedBox" class="hidden">
+      <label>Anni utili TFS certificati
+        <input id="certifiedYears" type="number" min="1" step="1" placeholder="es. 27">
+      </label>
+    </div>
+    <p class="result-line">Anni utilizzati nel calcolo: <strong id="usefulYears">0</strong></p>
+  </section>
+
+  <section class="card">
+    <div class="section-title"><span>2</span><div><h2>Trattamento economico</h2><p>Inserisci solo importi che risultano nel tuo cedolino/prospetto e che sono utili al TFS. Non vengono inventate voci o importi.</p></div></div>
+    <div class="grid two">
+      <label>Stipendio / parametro — mensile lordo €
+        <input id="salary" type="number" min="0" step="0.01" value="0">
+      </label>
+      <label>RIA — mensile lordo €
+        <input id="ria" type="number" min="0" step="0.01" value="0">
+      </label>
+      <label>IIS conglobata — mensile €
+        <input id="iis" type="number" min="0" step="0.01" value="0">
+      </label>
+      <label>Elemento provvisorio — mensile €
+        <input id="temporary" type="number" min="0" step="0.01" value="0">
+      </label>
+      <label>Assegno funzionale / voce equivalente — mensile €
+        <input id="functional" type="number" min="0" step="0.01" value="0">
+      </label>
+      <label>Altre voci utili — mensile €
+        <input id="otherMonthly" type="number" min="0" step="0.01" value="0">
+      </label>
+      <label>13ª mensilità — importo lordo €
+        <input id="thirteenth" type="number" min="0" step="0.01" value="0">
+      </label>
+      <label>6 scatti — importo annuo utile TFS €
+        <input id="sixSteps" type="number" min="0" step="0.01" value="0">
+      </label>
+    </div>
+    <p class="hint">I 6 scatti sono inseriti manualmente: il calcolatore non decide se spettano e non li calcola automaticamente.</p>
+  </section>
+
+  <section class="card calculation">
+    <div class="section-title"><span>3</span><div><h2>TFS lordo</h2><p>Formula INPS per l'Indennità di Buonuscita.</p></div></div>
+    <div class="formula">TFS lordo = (retribuzione annua utile × 80% ÷ 12) × anni utili</div>
+    <div class="breakdown">
+      <div><span>Retribuzione annua utile</span><strong id="annualUseful">€ 0,00</strong></div>
+      <div><span>80% della retribuzione annua utile</span><strong id="base80">€ 0,00</strong></div>
+      <div class="grand"><span>TFS LORDO STIMATO</span><strong id="grossTfs">€ 0,00</strong></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-title"><span>4</span><div><h2>Parte fiscale — solo con dati ufficiali</h2><p>Il calcolo fiscale definitivo dipende dai dati utilizzati dall'ente. Se li hai nel prospetto di liquidazione, puoi inserirli qui.</p></div></div>
+    <div class="notice warning"><strong>Non sai questi dati?</strong> Fermati al TFS lordo. Vai alla <a href="guida.html#fiscale">guida fiscale</a> per sapere dove recuperarli.</div>
+    <div class="grid two">
+      <label>Reddito di riferimento — € <span class="optional">opzionale</span>
+        <input id="referenceIncome" type="number" min="0" step="0.01" placeholder="es. 18.357,92">
+      </label>
+      <label>Aliquota applicata al TFS — % <span class="optional">ufficiale</span>
+        <input id="taxRate" type="number" min="0" max="100" step="0.01" placeholder="es. 23,00">
+      </label>
+      <label>Riduzione Legge 244/2007 — € <span class="optional">ufficiale</span>
+        <input id="law244" type="number" min="0" step="0.01" placeholder="es. 59,41">
+      </label>
+    </div>
+    <button id="calculateTax" class="button">Calcola il netto indicativo</button>
+    <div id="taxResult" class="tax-result hidden"></div>
+  </section>
+
+  <section class="card">
+    <h2>Dove trovare i dati?</h2>
+    <p>Non devi cercare formule nei cedolini: devi recuperare le <strong>voci utili</strong> e, per la parte fiscale, i dati ufficiali dell'ente.</p>
+    <a class="button secondary" href="guida.html">Apri la guida completa →</a>
+  </section>
+</main>
+
+<footer><div class="wrap">Calcola il tuo TFS · Strumento informativo · <a href="guida.html">Fonti e metodo</a></div></footer>
+<script src="js/app.js"></script>
+</body>
+</html>

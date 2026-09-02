@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Come compilare il calcolatore TFS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap"><a class="brand" href="index.html">Calcola il tuo TFS</a><nav><a href="index.html#calcolo">Calcolatore</a><a href="guida.html">Guida</a></nav></div></header>
+<main class="wrap">
+  <section class="hero compact"><p class="eyebrow">Guida alla compilazione</p><h1>Da dove prendere i dati</h1><p>La regola del progetto è semplice: <strong>se un dato non è documentato, non viene inventato.</strong></p></section>
+
+  <section class="card">
+    <h2>1. Anzianità utile</h2>
+    <p>Per il calcolo servono gli <strong>anni utili ai fini TFS</strong>. Per un militare, lo stato di servizio/foglio matricolare è il punto di partenza, ma eventuali riscatti o maggiorazioni possono modificare gli anni utili.</p>
+    <ul>
+      <li>Se hai già gli <strong>anni utili TFS certificati</strong>, usa quel valore.</li>
+      <li>Se hai solo anni + mesi, il calcolatore considera intero l'anno quando la frazione è <strong>superiore a 6 mesi</strong>; 6 mesi o meno non vengono conteggiati come anno aggiuntivo.</li>
+    </ul>
+    <p class="hint">Non inserire automaticamente anni figurativi/riscatti solo perché hai prestato servizio in determinate condizioni: devono risultare utili ai fini TFS secondo la tua posizione.</p>
+  </section>
+
+  <section class="card">
+    <h2>2. Trattamento economico</h2>
+    <p>Le voci vengono prese dal <strong>cedolino stipendiale</strong> o dal prospetto retributivo del militare. Per il personale dell'Esercito, la documentazione ufficiale indica che la retribuzione utile è composta solo dalle voci previste per il TFS.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Campo nel sito</th><th>Dove cercarlo</th></tr></thead>
+      <tbody>
+        <tr><td>Stipendio / parametro</td><td>Cedolino: voce stipendiale utile</td></tr>
+        <tr><td>RIA</td><td>Cedolino, se presente</td></tr>
+        <tr><td>IIS conglobata</td><td>Cedolino, se presente</td></tr>
+        <tr><td>Elemento provvisorio</td><td>Cedolino, se presente e utile</td></tr>
+        <tr><td>Assegno funzionale / equivalente</td><td>Cedolino, se presente</td></tr>
+        <tr><td>Altre voci utili</td><td>Solo se il prospetto/ente le considera utili al TFS</td></tr>
+        <tr><td>13ª mensilità</td><td>Cedolino di dicembre</td></tr>
+        <tr><td>6 scatti</td><td>Solo se riconosciuti: usare l'importo utile indicato nel prospetto/cedolino</td></tr>
+      </tbody>
+    </table></div>
+    <p class="hint">Non inserire straordinari, rimborsi spese o voci variabili solo perché presenti nel cedolino: la presenza in busta paga non significa automaticamente utilità ai fini TFS.</p>
+  </section>
+
+  <section id="fiscale" class="card">
+    <h2>3. Parte fiscale: qui non facciamo supposizioni</h2>
+    <p>Il calcolatore separa il <strong>TFS lordo</strong> dalla fiscalità. Per ottenere una stima netta attendibile servono i dati fiscali ufficiali dell'ente/prospetto di liquidazione.</p>
+    <p>Il prospetto può riportare, tra gli altri, <strong>reddito di riferimento, aliquota applicata e riduzioni</strong>. Questi dati sono legati alla determinazione fiscale della prestazione e non vanno ricostruiti da un singolo cedolino.</p>
+    <div class="notice">Se non possiedi questi dati, usa il risultato <strong>TFS lordo</strong> e considera il netto come non determinabile con sufficiente affidabilità dal solo cedolino.</div>
+  </section>
+
+  <section class="card">
+    <h2>4. Cosa calcola davvero questa versione</h2>
+    <ol>
+      <li>Somma le voci mensili inserite.</li>
+      <li>Annualizza le voci mensili.</li>
+      <li>Aggiunge 13ª e, se presente, 6 scatti già riconosciuti.</li>
+      <li>Applica l'80%.</li>
+      <li>Divide per 12.</li>
+      <li>Moltiplica per gli anni utili TFS.</li>
+    </ol>
+    <p>Il risultato è il <strong>TFS lordo indicativo</strong>. La parte fiscale viene attivata solo quando l'utente inserisce dati ufficiali.</p>
+  </section>
+
+  <section class="card">
+    <h2>5. Nota sui 6 scatti</h2>
+    <p>Per il personale militare gli eventuali 6 scatti possono incidere sul TFS, ma la spettanza dipende dalla situazione di cessazione. Per questo il calcolatore <strong>non li attribuisce automaticamente</strong>: l'utente inserisce l'importo solo se risulta riconosciuto.</p>
+  </section>
+
+  <section class="card">
+    <h2>6. Rateizzazione e tempi</h2>
+    <p>Questa versione non usa i tempi di pagamento per modificare il TFS lordo. Le soglie di rateizzazione e i termini di liquidazione sono informazioni separate dal calcolo dell'importo.</p>
+    <ul>
+      <li>Fino a 50.000 € lordi: una soluzione.</li>
+      <li>Oltre 50.000 € e sotto 100.000 €: due importi annuali.</li>
+      <li>Da 100.000 €: tre importi annuali.</li>
+    </ul>
+    <p>Dal 2027 sono inoltre cambiate alcune tempistiche per specifiche cessazioni e requisiti pensionistici: vedere la fonte INPS aggiornata prima di usarle come previsione personale.</p>
+  </section>
+
+  <section class="card">
+    <h2>Fonti</h2>
+    <ul class="sources">
+      <li><a href="https://www.inps.it/it/it/dettaglio-approfondimento.schede-informative.49912.indennit-di-buonuscita-ibu-per-dipendenti-pubblici.html" target="_blank" rel="noopener">INPS — Indennità di Buonuscita (IBU)</a></li>
+      <li><a href="https://www.esercito.difesa.it/assets/allegati/vademecum__il_trattamento_economico_di_quiescenza_e_di_fine_servizio__aggiornamento_2025___faq.2025.12.18.17.04.03.265.pdf" target="_blank" rel="noopener">Esercito Italiano — Vademecum trattamento economico di quiescenza e fine servizio</a></li>
+      <li><a href="https://www.esercito.difesa.it/assets/allegati/5rm-2024-interattivo.2026.02.02.15.05.21.014.pdf" target="_blank" rel="noopener">Esercito Italiano — Rivista Militare, approfondimento TFS</a></li>
+      <li><a href="https://www.normattiva.it/uri-res/N2Ls?urn%3Anir%3Astato%3Adecreto.del.presidente.della.repubblica%3A1973-12-29%3B1032%21vig=" target="_blank" rel="noopener">Normattiva — DPR 1032/1973</a></li>
+      <li><a href="https://www.inps.it/it/it/inps-comunica/atti/circolari-messaggi-e-normativa/dettaglio.circolari-e-messaggi.2026.03.circolare-numero-30-del-27-03-2026_15208.html" target="_blank" rel="noopener">INPS — Circolare 30/2026</a></li>
+    </ul>
+  </section>
+</main>
+<footer><div class="wrap"><a href="index.html">← Torna al calcolatore</a></div></footer>
+</body>
+</html>
