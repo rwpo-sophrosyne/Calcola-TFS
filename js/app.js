@@ -33,7 +33,7 @@ function n(id){ return parseLocaleNumber($(id).value); }
 
 const moneyInputIds = [
   "salary","ria","iis","temporary","functional","otherMonthly",
-  "thirteenth","sixSteps","referenceIncome","law244"
+  "thirteenth","sixSteps","umSalary","umBenefits","umFunctional","umOther","umSixSteps","referenceIncome","law244"
 ];
 
 moneyInputIds.forEach(id => {
@@ -62,10 +62,31 @@ function usefulYears(){
   return y + (m > 6 ? 1 : 0);
 }
 
+let calculationMode = "cedolino";
+
 function calculate(){
   const years = usefulYears();
-  const monthly = ["salary","ria","iis","temporary","functional","otherMonthly"].reduce((s,id)=>s+n(id),0);
-  const annual = monthly * 12 + n("thirteenth") + n("sixSteps");
+  let annual = 0;
+  let detail = {};
+
+  if (calculationMode === "ultimoMiglio") {
+    const treatment = n("umSalary");
+    const benefits = n("umBenefits");
+    const functional = n("umFunctional");
+    const other = n("umOther");
+    const sixSteps = n("umSixSteps");
+    // Per gli iscritti ex ENPAS la 13ª è esclusa dagli importi annualizzati
+    // comunicati nell'Ultimo Miglio e viene calcolata dal gestionale TFS.
+    // Qui la rendiamo esplicita come 1/12 del trattamento stipendiale.
+    const thirteenth = treatment / 12;
+    annual = treatment + benefits + functional + other + sixSteps + thirteenth;
+    detail = {treatment, benefits, functional, other, sixSteps, thirteenth};
+  } else {
+    const monthly = ["salary","ria","iis","temporary","functional","otherMonthly"].reduce((s,id)=>s+n(id),0);
+    annual = monthly * 12 + n("thirteenth") + n("sixSteps");
+    detail = {monthly, thirteenth:n("thirteenth"), sixSteps:n("sixSteps")};
+  }
+
   const base80 = annual * 0.80;
   const gross = years > 0 ? base80 / 12 * years : 0;
 
@@ -73,7 +94,7 @@ function calculate(){
   $("annualUseful").textContent = money.format(annual);
   $("base80").textContent = money.format(base80);
   $("grossTfs").textContent = money.format(gross);
-  return {years, annual, base80, gross};
+  return {years, annual, base80, gross, mode:calculationMode, detail};
 }
 
 
@@ -148,11 +169,24 @@ function calculateTax(){
     <p class="hint">Il netto è indicativo: l'aliquota inserita deve essere quella ufficiale applicata alla prestazione. Il calcolatore non ricostruisce lo storico fiscale quinquennale.</p>`;
 }
 
-["years","months","certifiedYears","salary","ria","iis","temporary","functional","otherMonthly","thirteenth","sixSteps"].forEach(id => $(id).addEventListener("input", calculate));
+["years","months","certifiedYears","salary","ria","iis","temporary","functional","otherMonthly","thirteenth","sixSteps","umSalary","umBenefits","umFunctional","umOther","umSixSteps"].forEach(id => $(id).addEventListener("input", calculate));
 $("certifiedToggle").addEventListener("change", ()=>{
   $("certifiedBox").classList.toggle("hidden", !$("certifiedToggle").checked);
   calculate();
 });
+
+function setCalculationMode(mode){
+  calculationMode = mode;
+  const ultimo = mode === "ultimoMiglio";
+  $("modeA").classList.toggle("hidden", ultimo);
+  $("modeB").classList.toggle("hidden", !ultimo);
+  $("modeCedolino").classList.toggle("active", !ultimo);
+  $("modeUltimoMiglio").classList.toggle("active", ultimo);
+  calculate();
+}
+
+$("modeCedolino").addEventListener("click", ()=>setCalculationMode("cedolino"));
+$("modeUltimoMiglio").addEventListener("click", ()=>setCalculationMode("ultimoMiglio"));
 $("calculateTax").addEventListener("click", calculateTax);
 $("calculateTiming").addEventListener("click", calculateTiming);
 calculate();

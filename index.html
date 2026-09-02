@@ -27,7 +27,7 @@
     <div class="section-title"><span>1</span><div><h2>Anzianità utile TFS</h2><p>Usa gli anni utili risultanti dal prospetto/stato di servizio. Se conosci solo anni e mesi, il sito applica la regola della frazione superiore a 6 mesi.</p></div></div>
     <div class="grid two">
       <label>Anni di servizio
-        <input id="years" type="number" min="0" step="1" value="0">
+        <input id="years" type="number" min="0" step="1" value="27">
       </label>
       <label>Mesi aggiuntivi
         <input id="months" type="number" min="0" max="11" step="1" value="0">
@@ -43,34 +43,65 @@
   </section>
 
   <section class="card">
-    <div class="section-title"><span>2</span><div><h2>Trattamento economico</h2><p>Inserisci solo importi che risultano nel tuo cedolino/prospetto e che sono utili al TFS. Non vengono inventate voci o importi.<br><strong>Formato importi:</strong> puoi scrivere 1.327,91 (formato italiano). Sono accettati anche 1327,91 e 1327.91.</p></div></div>
-    <div class="grid two">
-      <label>Stipendio / parametro — mensile lordo €
-        <input id="salary" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 1.327,91">
-      </label>
-      <label>RIA — mensile lordo €
-        <input id="ria" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 0,00">
-      </label>
-      <label>IIS conglobata — mensile €
-        <input id="iis" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 526,49">
-      </label>
-      <label>Elemento provvisorio — mensile €
-        <input id="temporary" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 9,27">
-      </label>
-      <label>Assegno funzionale / voce equivalente — mensile €
-        <input id="functional" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 146,03">
-      </label>
-      <label>Altre voci utili — mensile €
-        <input id="otherMonthly" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 0,00">
-      </label>
-      <label>13ª mensilità — importo lordo €
-        <input id="thirteenth" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 2.288,25">
-      </label>
-      <label>6 scatti — importo annuo utile TFS €
-        <input id="sixSteps" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 3.354,61">
-      </label>
+    <div class="section-title"><span>2</span><div><h2>Trattamento economico</h2><p>Scegli la fonte dei dati. Se hai il documento <strong>Ultimo Miglio TFS</strong>, usa la Modalità B: gli importi sono già annualizzati dall'Amministrazione.</p></div></div>
+
+    <div class="mode-switch" role="group" aria-label="Modalità di inserimento">
+      <button type="button" id="modeCedolino" class="mode-button active">Modalità A — Cedolino</button>
+      <button type="button" id="modeUltimoMiglio" class="mode-button">Modalità B — Ultimo Miglio TFS</button>
     </div>
-    <p class="hint">I 6 scatti sono inseriti manualmente: il calcolatore non decide se spettano e non li calcola automaticamente.</p>
+
+    <div id="modeA">
+      <p class="hint"><strong>Modalità A:</strong> inserisci le voci mensili utili e la 13ª dal cedolino. Non inserire automaticamente tutte le voci presenti in busta paga.</p>
+      <div class="grid two">
+        <label>Stipendio / parametro — mensile lordo €
+          <input id="salary" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 1.327,91">
+        </label>
+        <label>RIA — mensile lordo €
+          <input id="ria" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 0,00">
+        </label>
+        <label>IIS conglobata — mensile €
+          <input id="iis" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 526,49">
+        </label>
+        <label>Elemento provvisorio — mensile €
+          <input id="temporary" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 9,27">
+        </label>
+        <label>Assegno funzionale / voce equivalente — mensile €
+          <input id="functional" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 146,03">
+        </label>
+        <label>Altre voci utili — mensile €
+          <input id="otherMonthly" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 0,00">
+        </label>
+        <label>13ª mensilità — importo lordo €
+          <input id="thirteenth" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 2.288,25">
+        </label>
+        <label>6 scatti — importo annuo utile TFS €
+          <input id="sixSteps" class="money-input" type="text" inputmode="decimal" autocomplete="off" value="" placeholder="es. 3.354,61">
+        </label>
+      </div>
+      <p class="hint">I 6 scatti sono inseriti manualmente: il calcolatore non decide se spettano e non li calcola automaticamente.</p>
+    </div>
+
+    <div id="modeB" class="hidden">
+      <div class="notice"><strong>Modalità B — Ultimo Miglio TFS:</strong> usa gli importi annualizzati riportati nel documento INPS/Amministrazione. Per il personale statale ex ENPAS, la procedura INPS acquisisce la retribuzione utile <strong>senza la tredicesima</strong> e il gestionale TFS la calcola automaticamente.</div>
+      <div class="grid two">
+        <label>Trattamento stipendiale art. 2 — annuo €
+          <input id="umSalary" class="money-input" type="text" inputmode="decimal" autocomplete="off" placeholder="es. 22.252,73">
+        </label>
+        <label>Anticipazione benefici futuri art. 1 — annuo €
+          <input id="umBenefits" class="money-input" type="text" inputmode="decimal" autocomplete="off" placeholder="es. 111,26">
+        </label>
+        <label>Assegno funzionale DPR 52/2009 art. 8 — annuo €
+          <input id="umFunctional" class="money-input" type="text" inputmode="decimal" autocomplete="off" placeholder="es. 1.740,40">
+        </label>
+        <label>Altre voci utili TFS — annue €
+          <input id="umOther" class="money-input" type="text" inputmode="decimal" autocomplete="off" placeholder="es. 0,00">
+        </label>
+        <label>6 scatti — importo annuo utile TFS €
+          <input id="umSixSteps" class="money-input" type="text" inputmode="decimal" autocomplete="off" placeholder="es. 0,00">
+        </label>
+      </div>
+      <p class="hint">La 13ª non va inserita qui se stai copiando un Ultimo Miglio ex ENPAS: il sistema INPS la considera separatamente. Il calcolatore la stima come 1/12 del “Trattamento stipendiale art. 2” per rendere leggibile il calcolo; il dato ufficiale di liquidazione resta prevalente.</p>
+    </div>
   </section>
 
   <section class="card calculation">

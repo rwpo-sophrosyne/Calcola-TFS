@@ -76,3 +76,10 @@ Fonte primaria: INPS, Circolare n. 30 del 27 marzo 2026.
 
 ## Formato degli importi
 I campi economici accettano il formato italiano, ad esempio `1.327,91`, oltre a `1327,91` e `1327.91`. Il calcolatore normalizza internamente gli importi per il calcolo.
+
+
+## Modalità B — Ultimo Miglio TFS
+
+Il calcolatore include una modalità dedicata a chi possiede il documento **Ultimo Miglio TFS**. Gli importi sono inseriti come valori annualizzati, senza ricostruirli dal cedolino. Per gli iscritti ex ENPAS, l'INPS indica che la tredicesima non viene inserita nell'Ultimo Miglio e viene calcolata automaticamente dal gestionale TFS. Il sito la rende esplicita come 1/12 del trattamento stipendiale annualizzato per mostrare il passaggio di calcolo; il prospetto ufficiale INPS resta prevalente.
+
+Campi: trattamento stipendiale art. 2, anticipazione benefici futuri art. 1, assegno funzionale DPR 52/2009 art. 8, altre voci utili TFS e 6 scatti se documentati.
