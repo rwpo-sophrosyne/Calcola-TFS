@@ -88,3 +88,7 @@ Campi: trattamento stipendiale art. 2, anticipazione benefici futuri art. 1, ass
 ## Quale modalità usare?
 
 **Modalità A — Cedolino:** ricostruisce la base TFS dalle voci del cedolino. **Modalità B — Ultimo Miglio TFS:** usa gli importi annualizzati certificati nell’Ultimo Miglio TFS. Per gli iscritti alla Cassa ex ENPAS, i dati retributivi dell’Ultimo Miglio sono privi della tredicesima, che viene calcolata dal gestionale TFS INPS.
+
+
+### Hero fotografica
+La pagina principale utilizza `assets/hero-militari.png` come immagine hero.
